@@ -24,7 +24,7 @@ clean:
 # Run Python scripts within the virtual environment
 run:
 	@echo "Running the Python script in the virtual environment..."
-	$(VENV_DIR)/bin/python3 terminal_greeting.py
+	$(VENV_DIR)/bin/python3 term_greeter.py
 
 
 # Update the requirements.txt with currently installed packages in the virtual environment
