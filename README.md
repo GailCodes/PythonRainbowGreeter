@@ -3,22 +3,20 @@ A program that greets you when you open the terminal
 
 # Working on project
 
-#### Create python virtual environment:
+#### Create virtual environment and install deps.
 
 ```
-make setup
+make install
 ```
 
-#### Enter environment
-
+#### Enter virtual environment
 ```
 source venv/bin/activate
 ```
 
-#### Install dependencies
+#### Run the program
 
 ```
-make install-deps
+make run
 ```
-
 
