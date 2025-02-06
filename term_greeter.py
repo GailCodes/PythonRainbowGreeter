@@ -20,6 +20,7 @@ except FileNotFoundError:
     exit
 
 
+# Get random greeting from the list of greetings
 selected_greeting = greetings[random.randint(0, len(greetings) - 1)]
 
 
