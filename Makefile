@@ -1,8 +1,6 @@
-# Define the virtual environment directory
 VENV_DIR = venv
-
-# Define the requirements file
 REQUIREMENTS = requirements.txt
+PROGRAM_NAME= term_greeter.py
 
 # Create virtual environment
 $(VENV_DIR)/bin/activate: $(REQUIREMENTS)
@@ -24,7 +22,7 @@ clean:
 # Run Python scripts within the virtual environment
 run:
 	@echo "Running the Python script in the virtual environment..."
-	$(VENV_DIR)/bin/python3 term_greeter.py
+	$(VENV_DIR)/bin/python3 $(PROGRAM_NAME)
 
 
 # Update the requirements.txt with currently installed packages in the virtual environment
