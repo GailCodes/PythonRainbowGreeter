@@ -1,6 +1,6 @@
 VENV_DIR = venv
 REQUIREMENTS = requirements.txt
-PROGRAM_NAME= term_greeter.py
+PROGRAM_NAME= main.py
 
 # Create virtual environment
 $(VENV_DIR)/bin/activate: $(REQUIREMENTS)
