@@ -1,30 +1,39 @@
 import random
 import json
 import time
+import argparse
 from colorama import Fore, init
 
 
-# Initialize colorama
-init(autoreset=True)
-
-greetings = None
-colors = [Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
+COLORS = [Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
 
 
 def main():
     # Get greetings from file
     greetings = readFile("greetings.json")
+    
+    command_line_arguments = createCommandLineArguments()
 
-    # Get random greeting from the list of greetings
-    selected_greeting = greetings[random.randint(0, len(greetings) - 1)]
+    if command_line_arguments.list_all:
+        print(greetings)
+    else:
+        # Get random greeting from the list of greetings
+        selected_greeting = greetings[random.randint(0, len(greetings) - 1)]
+
+        printRainbowText(selected_greeting)
+
+        # Print a newline so terminal doesn't look weird
+        print("\n", end="")
 
 
-    printRainbowText(selected_greeting)
+def createCommandLineArguments():
+    args_parser = argparse.ArgumentParser()
+    args_parser.add_argument("--list-all", action="store_true", help="List all phrases")
+    args_parser.add_argument("--add", action="store_true", help="Add a phrase")
+    args_parser.add_argument("--remove", action="store_true", help="Remove a phrase")
 
-
-    # Print a newline so terminal doesn't look weird
-    print("\n", end="")
-
+    return args_parser.parse_args()
+    
 
 def readFile(filename):
     try:
@@ -36,11 +45,15 @@ def readFile(filename):
 
 
 def printRainbowText(text):
+    # Initialize colorama
+    init(autoreset=True)
+
     # Print the greeting with a rainbow effect
     for i, char in enumerate(text):
-        color = colors[i % len(colors)]
+        color = COLORS[i % len(COLORS)]
         print(color + char, end="", flush=True)
         time.sleep(0.03)
+
 
 if __name__ == "__main__":
     main()
