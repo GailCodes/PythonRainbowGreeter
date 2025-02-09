@@ -4,18 +4,29 @@ import time
 import argparse
 from colorama import Fore, init
 
-
+GREETINGS_FILENAME = "greetings.json"
 COLORS = [Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
 
 
 def main():
     # Get greetings from file
-    greetings = readFile("greetings.json")
+    greetings = readFile(GREETINGS_FILENAME)
     
     command_line_arguments = createCommandLineArguments()
 
+    ###############################
+    # Command line argument logic #    
+    ###############################
     if command_line_arguments.list_all:
         print(greetings)
+    elif command_line_arguments.add:
+        new_greeting = command_line_arguments.add
+        
+        # Add the new greeting to the current list of greetings and save to the file
+        greetings.append(new_greeting)
+        writeFile(GREETINGS_FILENAME, greetings)
+
+        print(f"New greeting: \"{command_line_arguments.add}\" has been added!")
     else:
         # Get random greeting from the list of greetings
         selected_greeting = greetings[random.randint(0, len(greetings) - 1)]
@@ -29,8 +40,8 @@ def main():
 def createCommandLineArguments():
     args_parser = argparse.ArgumentParser()
     args_parser.add_argument("--list-all", action="store_true", help="List all phrases")
-    args_parser.add_argument("--add", action="store_true", help="Add a phrase")
-    args_parser.add_argument("--remove", action="store_true", help="Remove a phrase")
+    args_parser.add_argument("--add", type=str, help="Add a phrase")
+    args_parser.add_argument("--remove", help="Remove a phrase")
 
     return args_parser.parse_args()
     
@@ -41,8 +52,17 @@ def readFile(filename):
             return json.load(file)
     except FileNotFoundError:
         print("The greetings file does not exist")
-        exit
+        exit()
+        
 
+def writeFile(filename, data):
+    try:
+        with open(filename, "w") as file:
+            json.dump(data, file, indent=4)
+    except Exception as e:
+        print(f"Oops! There was an error saving the file: {e}")
+        exit()
+        
 
 def printRainbowText(text):
     # Initialize colorama
