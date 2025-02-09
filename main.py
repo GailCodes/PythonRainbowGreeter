@@ -39,9 +39,9 @@ def main():
 
 def createCommandLineArguments():
     args_parser = argparse.ArgumentParser()
-    args_parser.add_argument("--list-all", action="store_true", help="List all phrases")
-    args_parser.add_argument("--add", type=str, help="Add a phrase")
-    args_parser.add_argument("--remove", help="Remove a phrase")
+    args_parser.add_argument("--list-all", action="store_true", help="List all greetings")
+    args_parser.add_argument("--add", type=str, help="Add a new greeting")
+    args_parser.add_argument("--remove", help="Remove a greeting")
 
     return args_parser.parse_args()
     
