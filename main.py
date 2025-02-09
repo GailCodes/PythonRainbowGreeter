@@ -18,7 +18,9 @@ def main():
     # Command line argument logic #    
     ###############################
     if command_line_arguments.list_all:
-        print(greetings)
+        for i in range(len(greetings)):
+            # Show all greetings in order, preceded by the index
+            print(f"{i}: \"{greetings[i]}\"")
     elif command_line_arguments.add:
         new_greeting = command_line_arguments.add
         
