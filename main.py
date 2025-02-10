@@ -29,6 +29,17 @@ def main():
         writeFile(GREETINGS_FILENAME, greetings)
 
         print(f"New greeting: \"{command_line_arguments.add}\" has been added!")
+    elif command_line_arguments.remove:
+        index_to_remove = command_line_arguments.remove
+        
+        if 0 <= index_to_remove < len(greetings):
+            removed_greeting = greetings.pop(index_to_remove)
+
+            print(f"Successfully remove greeting {index_to_remove}: \"{removed_greeting}\"")
+            writeFile(GREETINGS_FILENAME, greetings)
+        else: 
+            print("Oops! Looks like that greeting index is incorrect.")
+        
     else:
         # Get random greeting from the list of greetings
         selected_greeting = greetings[random.randint(0, len(greetings) - 1)]
@@ -43,7 +54,7 @@ def createCommandLineArguments():
     args_parser = argparse.ArgumentParser()
     args_parser.add_argument("--list-all", action="store_true", help="List all greetings")
     args_parser.add_argument("--add", type=str, help="Add a new greeting")
-    args_parser.add_argument("--remove", help="Remove a greeting")
+    args_parser.add_argument("--remove", type=int, help="Remove a greeting by index")
 
     return args_parser.parse_args()
     
