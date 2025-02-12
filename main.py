@@ -10,50 +10,47 @@ COLORS = [Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
 
 def main():
     # Get greetings from file
-    greetings = readFile(GREETINGS_FILENAME)
+    greetings = read_file(GREETINGS_FILENAME)
     
-    command_line_arguments = createCommandLineArguments()
+    args = create_command_line_arguments()
 
     ###############################
     # Command line argument logic #    
     ###############################
-    
-    if command_line_arguments.list:
-        printList(greetings)
+    if args.list:
+        print_list(greetings)
         
-    elif command_line_arguments.show != None:
-        index_to_show = command_line_arguments.show
+    elif args.show is not None:
+        index_to_show = args.show
         
-        if isIndexInListRange(index_to_show):
-            printRainbowText(greetings[index_to_show])
-            
+        if is_index_in_list_range(greetings, index_to_show):
+            print_rainbow_text(greetings[index_to_show])
         
-    elif command_line_arguments.add:
-        new_greeting = command_line_arguments.add
+    elif args.add:
+        new_greeting = args.add
         
         # Add the new greeting to the current list of greetings and save to the file
         greetings.append(new_greeting)
-        writeFile(GREETINGS_FILENAME, greetings)
-        print(f"New greeting: \"{command_line_arguments.add}\" has been added!")
+        write_file(GREETINGS_FILENAME, greetings)
+        print(f"New greeting: \"{args.add}\" has been added!")
 
-    elif command_line_arguments.remove != None:
-        index_to_remove = command_line_arguments.remove
+    elif args.remove is not None:
+        index_to_remove = args.remove
         
-        if isIndexInListRange(greetings, index_to_remove):
+        if is_index_in_list_range(greetings, index_to_remove):
             removed_greeting = greetings.pop(index_to_remove)
 
-            print(f"Successfully remove greeting {index_to_remove}: \"{removed_greeting}\"")
-            writeFile(GREETINGS_FILENAME, greetings)
-            printList(greetings)
+            print(f"Successfully removed greeting {index_to_remove}: \"{removed_greeting}\"")
+            write_file(GREETINGS_FILENAME, greetings)
+            print_list(greetings)
         
     else:
         # Get random greeting from the list of greetings
         selected_greeting = greetings[random.randint(0, len(greetings) - 1)]
+        print_rainbow_text(selected_greeting)
 
-        printRainbowText(selected_greeting)
 
-
-def createCommandLineArguments():
+def create_command_line_arguments():
     args_parser = argparse.ArgumentParser()
     args_parser.add_argument("--list", action="store_true", help="List all greetings")
     args_parser.add_argument("--show", type=int, help="Show a specific greeting by index")
@@ -63,7 +60,7 @@ def createCommandLineArguments():
     return args_parser.parse_args()
     
 
-def readFile(filename):
+def read_file(filename):
     try:
         with open(filename, "r") as file:
             return json.load(file)
@@ -72,7 +69,7 @@ def readFile(filename):
         exit()
         
 
-def writeFile(filename, data):
+def write_file(filename, data):
     try:
         with open(filename, "w") as file:
             json.dump(data, file, indent=4)
@@ -81,20 +78,21 @@ def writeFile(filename, data):
         exit()
         
 
-def isIndexInListRange(list, index):
-    if 0 <= index < len(list):
+def is_index_in_list_range(lst, index):
+    if 0 <= index < len(lst):
         return True
     else:
         print("Oops! Looks like that greeting index is incorrect.")
+        return False
         
         
-def printList(list):
-    for i in range(len(list)):
+def print_list(lst):
+    for i in range(len(lst)):
             # Show all list in order, preceded by the index
-            print(f"{i}: \"{list[i]}\"")
+            print(f"{i}: \"{lst[i]}\"")
         
 
-def printRainbowText(text):
+def print_rainbow_text(text):
     # Initialize colorama
     init(autoreset=True)
 
