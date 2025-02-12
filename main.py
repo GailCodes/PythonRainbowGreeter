@@ -26,6 +26,9 @@ def main():
         
         if 0 <= index_to_show < len(greetings):
             printRainbowText(greetings[index_to_show])
+        else:
+            print("Oops! Looks like that greeting index is incorrect.")
+            
         
     elif command_line_arguments.add:
         new_greeting = command_line_arguments.add
