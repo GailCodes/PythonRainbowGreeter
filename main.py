@@ -17,26 +17,27 @@ def main():
     ###############################
     # Command line argument logic #    
     ###############################
-    if command_line_arguments.list_all:
-        for i in range(len(greetings)):
-            # Show all greetings in order, preceded by the index
-            print(f"{i}: \"{greetings[i]}\"")
+    
+    if command_line_arguments.list:
+        printList(greetings)
+        
     elif command_line_arguments.add:
         new_greeting = command_line_arguments.add
         
         # Add the new greeting to the current list of greetings and save to the file
         greetings.append(new_greeting)
         writeFile(GREETINGS_FILENAME, greetings)
-
         print(f"New greeting: \"{command_line_arguments.add}\" has been added!")
-    elif command_line_arguments.remove:
+
+    elif command_line_arguments.remove or command_line_arguments.remove == 0:
         index_to_remove = command_line_arguments.remove
         
-        if 0 <= index_to_remove < len(greetings):
+        if index_to_remove >= 0 and index_to_remove < len(greetings):
             removed_greeting = greetings.pop(index_to_remove)
 
             print(f"Successfully remove greeting {index_to_remove}: \"{removed_greeting}\"")
             writeFile(GREETINGS_FILENAME, greetings)
+            printList(greetings)
         else: 
             print("Oops! Looks like that greeting index is incorrect.")
         
@@ -52,7 +53,7 @@ def main():
 
 def createCommandLineArguments():
     args_parser = argparse.ArgumentParser()
-    args_parser.add_argument("--list-all", action="store_true", help="List all greetings")
+    args_parser.add_argument("--list", action="store_true", help="List all greetings")
     args_parser.add_argument("--add", type=str, help="Add a new greeting")
     args_parser.add_argument("--remove", type=int, help="Remove a greeting by index")
 
@@ -75,6 +76,12 @@ def writeFile(filename, data):
     except Exception as e:
         print(f"Oops! There was an error saving the file: {e}")
         exit()
+        
+        
+def printList(greetings):
+    for i in range(len(greetings)):
+            # Show all greetings in order, preceded by the index
+            print(f"{i}: \"{greetings[i]}\"")
         
 
 def printRainbowText(text):
