@@ -24,10 +24,8 @@ def main():
     elif command_line_arguments.show != None:
         index_to_show = command_line_arguments.show
         
-        if 0 <= index_to_show < len(greetings):
+        if isIndexInListRange(index_to_show):
             printRainbowText(greetings[index_to_show])
-        else:
-            print("Oops! Looks like that greeting index is incorrect.")
             
         
     elif command_line_arguments.add:
@@ -41,14 +39,12 @@ def main():
     elif command_line_arguments.remove != None:
         index_to_remove = command_line_arguments.remove
         
-        if 0 <= index_to_remove < len(greetings):
+        if isIndexInListRange(greetings, index_to_remove):
             removed_greeting = greetings.pop(index_to_remove)
 
             print(f"Successfully remove greeting {index_to_remove}: \"{removed_greeting}\"")
             writeFile(GREETINGS_FILENAME, greetings)
             printList(greetings)
-        else: 
-            print("Oops! Looks like that greeting index is incorrect.")
         
     else:
         # Get random greeting from the list of greetings
@@ -84,11 +80,18 @@ def writeFile(filename, data):
         print(f"Oops! There was an error saving the file: {e}")
         exit()
         
+
+def isIndexInListRange(list, index):
+    if 0 <= index < len(list):
+        return True
+    else:
+        print("Oops! Looks like that greeting index is incorrect.")
         
-def printList(greetings):
-    for i in range(len(greetings)):
-            # Show all greetings in order, preceded by the index
-            print(f"{i}: \"{greetings[i]}\"")
+        
+def printList(list):
+    for i in range(len(list)):
+            # Show all list in order, preceded by the index
+            print(f"{i}: \"{list[i]}\"")
         
 
 def printRainbowText(text):
