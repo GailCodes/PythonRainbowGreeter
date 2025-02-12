@@ -27,22 +27,12 @@ def main():
             print_rainbow_text(greetings[index_to_show])
         
     elif args.add:
-        new_greeting = args.add
-        
-        # Add the new greeting to the current list of greetings and save to the file
-        greetings.append(new_greeting)
-        write_file(GREETINGS_FILENAME, greetings)
-        print(f"New greeting: \"{args.add}\" has been added!")
+        add_greeting(args.add, greetings)
 
     elif args.remove is not None:
-        index_to_remove = args.remove
-        
-        if is_index_in_list_range(greetings, index_to_remove):
-            removed_greeting = greetings.pop(index_to_remove)
-
-            print(f"Successfully removed greeting {index_to_remove}: \"{removed_greeting}\"")
-            write_file(GREETINGS_FILENAME, greetings)
-            print_list(greetings)
+        remove_greeting(args.remove, greetings)
+        write_file(GREETINGS_FILENAME, greetings)
+        print_list(greetings)
         
     else:
         # Get random greeting from the list of greetings
@@ -76,7 +66,23 @@ def write_file(filename, data):
     except Exception as e:
         print(f"Oops! There was an error saving the file: {e}")
         exit()
+
         
+def add_greeting(new_greeting, greetings):
+    # Add the new greeting to the current list of greetings and save to the file
+    greetings.append(new_greeting)
+    write_file(GREETINGS_FILENAME, greetings)
+    print(f"New greeting: \"{args.add}\" has been added!")
+        
+
+def remove_greeting(index_to_remove, greetings):
+    # Remove the greeting with the selected index        
+    if is_index_in_list_range(greetings, index_to_remove):
+        removed_greeting = greetings.pop(index_to_remove)
+
+        print(f"Successfully removed greeting {index_to_remove}: \"{removed_greeting}\"")
+        
+
 
 def is_index_in_list_range(lst, index):
     if 0 <= index < len(lst):
