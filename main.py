@@ -4,6 +4,7 @@ import time
 import argparse
 from colorama import Fore, init
 
+
 GREETINGS_FILENAME = "greetings.json"
 COLORS = [Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
 
@@ -11,12 +12,12 @@ COLORS = [Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
 def main():
     # Get greetings from file
     greetings = read_file(GREETINGS_FILENAME)
-    
-    args = create_command_line_arguments()
 
     ###############################
     # Command line argument logic #    
     ###############################
+    args = create_command_line_arguments()
+    
     if args.list:
         print_list(greetings)
         
@@ -81,7 +82,6 @@ def remove_greeting(index_to_remove, greetings):
         removed_greeting = greetings.pop(index_to_remove)
 
         print(f"Successfully removed greeting {index_to_remove}: \"{removed_greeting}\"")
-        
 
 
 def is_index_in_list_range(lst, index):
