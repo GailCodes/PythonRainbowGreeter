@@ -24,5 +24,5 @@ def is_index_in_list_range(lst, index):
     if 0 <= index < len(lst):
         return True
     else:
-        print("Oops! Looks like that greeting index is incorrect.")
+        print("Oops! That greeting does not exist.")
         return False

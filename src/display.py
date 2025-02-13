@@ -4,10 +4,10 @@ from colorama import Fore, init
 
 COLORS = [Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
 
-def print_list(lst):
-    for i in range(len(lst)):
+def print_list(list):
+    for i in range(len(list)):
             # Show all list in order, preceded by the index
-            print(f"{i}: \"{lst[i]}\"")
+            print(f"{i}: \"{list[i]}\"")
         
 
 def print_rainbow_text(text):
