@@ -29,3 +29,7 @@ run:
 update-reqs:
 	@echo "Updating requirements.txt with installed packages..."
 	$(VENV_DIR)/bin/pip freeze > $(REQUIREMENTS)
+
+# Make executable
+executable:
+	pyinstaller --onefile --add-data "greetings.json:." main.py
