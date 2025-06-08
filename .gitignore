@@ -3,3 +3,4 @@ src/__pycache__/
 todo-list.txt
 build/
 dist/
+python-rainbow-greeter.spec
