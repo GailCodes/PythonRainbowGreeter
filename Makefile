@@ -32,4 +32,4 @@ update-reqs:
 
 # Make executable
 executable:
-	pyinstaller --onefile --add-data "greetings.json:." main.py
+	pyinstaller --onefile -n python-rainbow-greeter --add-data "greetings.json:." main.py
